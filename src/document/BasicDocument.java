@@ -1,5 +1,6 @@
 package document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** 
@@ -8,9 +9,11 @@ import java.util.List;
  */
 public class BasicDocument extends Document 
 {
+	private List<String> words;
 	/** Create a new BasicDocument object
 	 * 
 	 * @param text The full text of the Document.
+	 * 
 	 */
 	public BasicDocument(String text)
 	{
@@ -36,7 +39,10 @@ public class BasicDocument extends Document
 	{
 		//TODO: Implement this method in week 2 according to the comments above.  
 		// See the Module 2 support videos if you need help.
-	    return 0;
+//		BasicDocument bd = new BasicDocument(getText());
+		words = new ArrayList<String>();
+		words = getTokens("[a-zA-Z]+");
+	    return words.size();
 	}
 	
 	/**
@@ -56,7 +62,9 @@ public class BasicDocument extends Document
 	{
 	    //TODO: Implement this method.  See the Module 2 support videos 
         // if you need help.
-        return 0;
+		List<String> sentences = new ArrayList<String>();
+		sentences = getTokens("[^.!?]+");
+        return sentences.size();
 	}
 	
 	/**
@@ -81,7 +89,16 @@ public class BasicDocument extends Document
 		// expression for the syllable counting.  We recommend you implement 
 		// the helper function countSyllables in Document.java using a loop, 
 		// and then call it here on each word.
-        return 0;
+		int counter = 0;
+		int sum = 0;
+		List<String>words = new ArrayList<String>();
+		words = getTokens("[a-zA-Z]+");
+//		System.out.println(words);
+		for(String word : words) {
+			counter = countSyllables(word);
+			sum+=counter;
+		}
+        return sum;
 	}
 	
 	
@@ -111,6 +128,23 @@ public class BasicDocument extends Document
 		testCase(new BasicDocument("Sentences?!"), 3, 1, 1);
 		testCase(new BasicDocument("Lorem ipsum dolor sit amet, qui ex choro quodsi moderatius, nam dolores explicari forensibus ad."),
 		         32, 15, 1);
+		
+		Document d = new BasicDocument("This is a test.  How many???  "
+		        + "Senteeeeeeeeeences are here... there should be 5!  Right?");
+		d.getFleschScore();
+		
+		String s2 = "My String";
+		String text = s2;
+		System.out.println(text);
+		
+		String s1 = "%one%%two%%%three%%%%";
+		String[] c = s1.split("[one,two,three]");
+//		for(String a : c) {
+//			System.out.print(a+" ");
+//		}
+		for(int i = 0; i < c.length; i++) {
+			System.out.print(c[i]+" ");
+		}
 	}
 	
 }

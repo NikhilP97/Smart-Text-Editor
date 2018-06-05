@@ -67,7 +67,33 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 2) and 
 	    // EfficientDocument (module 3).
-	    return 0;
+		int count = 0;
+		int b;
+		word = word.toLowerCase();
+		char[] wordCharArray = word.toCharArray();
+
+		int i = 0;
+		while(i < wordCharArray.length) {
+			if(wordCharArray[i]=='a'||wordCharArray[i]=='e'||wordCharArray[i]=='i'||wordCharArray[i]=='o'||wordCharArray[i]=='u'||wordCharArray[i]=='y') {
+				if(!(wordCharArray[i]=='e') || !(i == wordCharArray.length-1) || !(count!=0)) {
+					count+=1;
+//					System.out.println("count : "+count);
+//					System.out.println("i "+i);
+					while(i < wordCharArray.length) {
+						if(wordCharArray[i]=='a'||wordCharArray[i]=='e'||wordCharArray[i]=='i'||wordCharArray[i]=='o'||wordCharArray[i]=='u'||wordCharArray[i]=='y') {
+							i++;
+						}
+						else {
+							break;
+						}
+					}
+					
+				}
+			}
+			i++;
+		}
+//		System.out.println("Word : "+word+", count : "+count);
+	    return count;
 	}
 	
 	/** A method for testing
@@ -83,9 +109,12 @@ public abstract class Document {
 		System.out.println("Testing text: ");
 		System.out.print(doc.getText() + "\n....");
 		boolean passed = true;
-		int syllFound = doc.getNumSyllables();
 		int wordsFound = doc.getNumWords();
+//		System.out.println("words : "+wordsFound);
 		int sentFound = doc.getNumSentences();
+//		System.out.println("Sentences : "+sentFound);
+		int syllFound = doc.getNumSyllables();
+		
 		if (syllFound != syllables) {
 			System.out.println("\nIncorrect number of syllables.  Found " + syllFound 
 					+ ", expected " + syllables);
@@ -132,7 +161,17 @@ public abstract class Document {
 	{
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
-	    return text.length();
+		double wordNumber = getNumWords();
+//		System.out.println("words : "+wordNumber);
+		double sentenceNumber = getNumSentences();
+//		System.out.println("sentences : "+sentenceNumber);
+		double syllableNumber = getNumSyllables();
+//		System.out.println("syllable : "+syllableNumber);
+//		System.out.println("first term : "+1.015*(wordNumber/sentenceNumber));
+//		System.out.println("second term : "+84.6*(syllableNumber/wordNumber));
+		double score = 206.835 - (1.015*(wordNumber/sentenceNumber)) - (84.6*(syllableNumber/wordNumber));
+		System.out.println("Flesch Score : "+score);
+	    return score;
 	}
 	
 	
