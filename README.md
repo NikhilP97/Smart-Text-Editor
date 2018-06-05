@@ -1,6 +1,6 @@
 # Smart Text Editor
 
-After completing the first course of this specialization, it really cleared my doubts and concepts about object oriented programming and I also enjoyed my own custom geospatial map during the course. So after that, I was very keen to continue this course and although I know a bit about data structures, I wanted to learn it inside out with the performance parameters. So I enrolled in the 2nd course and this too has a great project, and since it involves data structures it's going to be more of the back-end development rather than front end which I prefer as I like to develop logic and solve problems. This is will also help me to really dig in and experiment with the different data structures you are learning and the running times for each of them.
+After completing the first course of this specialization, it really cleared my doubts and concepts about object oriented programming and I also enjoyed making my own custom geospatial map during the course. So after that, I was very keen to continue this course and although I knew a bit about data structures, I wanted to learn it inside out with the performance parameters. So I enrolled in the 2nd course and this too has a great project, and since it involves data structures it's going to be more of the back-end development rather than front end which I prefer as I like to develop logic and solve problems. This will also help me to really dig in and experiment with the different data structures that I'm learning and the running times for each of them.
 
 Learning outcomes:
 
