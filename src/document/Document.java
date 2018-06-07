@@ -170,7 +170,7 @@ public abstract class Document {
 //		System.out.println("first term : "+1.015*(wordNumber/sentenceNumber));
 //		System.out.println("second term : "+84.6*(syllableNumber/wordNumber));
 		double score = 206.835 - (1.015*(wordNumber/sentenceNumber)) - (84.6*(syllableNumber/wordNumber));
-		System.out.println("Flesch Score : "+score);
+//		System.out.println("Flesch Score : "+score);
 	    return score;
 	}
 	
