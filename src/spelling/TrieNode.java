@@ -63,6 +63,11 @@ class TrieNode {
 	{
 		return text;
 	}
+    
+    public void setText(String word)
+	{
+		 text = word;;
+	}
 	
     /** Set whether or not this node ends a word in the trie. */
 	public void setEndsWord(boolean b)

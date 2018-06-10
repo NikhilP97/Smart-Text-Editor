@@ -43,6 +43,8 @@ public class AutoCompleteDictionaryTrieTester {
 		smallDict.addWord("a");
 		smallDict.addWord("subsequent");
 		
+//		smallDict.printTree();
+		
 		DictionaryLoader.loadDictionary(largeDict, dictFile);
 	}
 

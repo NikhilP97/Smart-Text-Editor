@@ -1,9 +1,12 @@
 package spelling;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 /** 
@@ -20,6 +23,7 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     public AutoCompleteDictionaryTrie()
 	{
 		root = new TrieNode();
+		size = 0;
 	}
 	
 	
@@ -40,7 +44,34 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	public boolean addWord(String word)
 	{
 	    //TODO: Implement this method.
-	    return false;
+		if(word == null) {
+			return false;
+		}
+		
+		String lowerCaseWord = word.toLowerCase();
+		char[] charArray = lowerCaseWord.toCharArray();
+		TrieNode tempNode = new TrieNode();
+		tempNode = root;
+		Set<Character> getLinks = new HashSet<Character>();
+		for(char temp : charArray) {
+			getLinks = tempNode.getValidNextCharacters();
+			if(getLinks.contains(temp)) {
+				tempNode = tempNode.getChild(temp);
+			}
+			else {
+				tempNode = tempNode.insert(temp);
+			}
+		}
+		if(tempNode.endsWord()) {
+			return false;
+		}
+		else {
+			tempNode.setEndsWord(true);
+//			tempNode.setText("hahahah");
+			size+=1;
+			return true;
+		}
+	    
 	}
 	
 	/** 
@@ -50,7 +81,7 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	public int size()
 	{
 	    //TODO: Implement this method
-	    return 0;
+	    return size;
 	}
 	
 	
@@ -60,6 +91,28 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	public boolean isWord(String s) 
 	{
 	    // TODO: Implement this method
+		if(s == null) {
+			return false;
+		}
+		
+		String lowerCaseWord = s.toLowerCase();
+		char[] charArray = lowerCaseWord.toCharArray();
+		TrieNode tempNode = new TrieNode();
+		tempNode = root;
+		Set<Character> getLinks = new HashSet<Character>();
+		for(char temp : charArray) {
+			getLinks = tempNode.getValidNextCharacters();
+			if(getLinks.contains(temp)) {
+				tempNode = tempNode.getChild(temp);
+			}
+			else {
+				return false;
+			}
+		}
+		if(tempNode.endsWord()) {
+//			System.out.println("Oh Yes your logic is on point!!!!");
+			return true;
+		}
 		return false;
 	}
 
@@ -100,8 +153,51 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 //       If it is a word, add it to the completions list
     	 //       Add all of its child nodes to the back of the queue
     	 // Return the list of completions
-    	 
-         return null;
+    	 List<String> predictedWords = new ArrayList<String>();
+    	 if(prefix == null) {
+ 			return predictedWords;
+ 		}
+ 		
+ 		String lowerCaseWord = prefix.toLowerCase();
+ 		char[] charArray = lowerCaseWord.toCharArray();
+ 		TrieNode tempNode = new TrieNode();
+// 		root.setText("/R");
+ 		tempNode = root;
+ 		
+ 		Set<Character> getLinks = new HashSet<Character>();
+ 		getLinks = tempNode.getValidNextCharacters();
+// 		System.out.println("valid links of root are : "+getLinks);
+ 		for(char temp : charArray) {
+			getLinks = tempNode.getValidNextCharacters();
+//			System.out.println("valid links of - "+temp+"are : "+getLinks);
+			if(getLinks.contains(temp)) {
+				tempNode = tempNode.getChild(temp);
+			}
+			else {
+				return predictedWords;
+			}
+		}
+ 		
+ 		Queue<TrieNode> queue = new LinkedList<TrieNode>();
+ 		queue.add(tempNode);
+ 		while(numCompletions > 0 && !queue.isEmpty()) {
+ 			tempNode = queue.remove();
+ 			if(tempNode.endsWord()) {
+ 				predictedWords.add(tempNode.getText());
+ 				numCompletions--;
+ 			}
+// 			System.out.println("checking Node here : "+tempNode.getText());
+ 			TrieNode next = null;
+ 			for (Character c : tempNode.getValidNextCharacters()) {
+ 				next = tempNode.getChild(c);
+ 				if(next != null) {
+ 					queue.add(next);
+ 				}
+ 				
+ 			}
+ 			
+ 		}
+        return predictedWords;
      }
 
  	// For debugging
